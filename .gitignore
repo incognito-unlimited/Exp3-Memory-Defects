@@ -1,0 +1,28 @@
+# Build output and binaries
+build/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.dSYM/
+
+# Python / DOCX tooling artifacts
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*~

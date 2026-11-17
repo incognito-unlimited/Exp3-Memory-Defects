@@ -1,0 +1,64 @@
+============================================================
+LAB 3A - COMPILATION RESULTS
+============================================================
+Valgrind flags: -Wall -Wextra -g -O0
+ASan flags    : -g -O1 -fsanitize=address -fno-omit-frame-pointer
+============================================================
+
+--- VALGRIND BUILDS (buggy) ---
+
+$ gcc -Wall -Wextra -g -O0 buggy/uninitialised.c -o build/valgrind/uninitialised
+buggy/uninitialised.c: In function ‘main’:
+buggy/uninitialised.c:17:8: warning: ‘value’ is used uninitialized [-Wuninitialized]
+   17 |     if (value > 0) {
+      |        ^
+buggy/uninitialised.c:13:9: note: ‘value’ was declared here
+   13 |     int value; /* VULNERABILITY: never initialised before use. */
+      |         ^~~~~
+exit_code=0
+
+$ gcc -Wall -Wextra -g -O0 buggy/leak.c -o build/valgrind/leak
+exit_code=0
+
+$ gcc -Wall -Wextra -g -O0 buggy/double_free.c -o build/valgrind/double_free
+buggy/double_free.c: In function ‘main’:
+buggy/double_free.c:36:5: warning: pointer ‘value’ used after ‘free’ [-Wuse-after-free]
+   36 |     release_again(value);
+      |     ^~~~~~~~~~~~~~~~~~~~
+buggy/double_free.c:32:5: note: call to ‘free’ here
+   32 |     free(value);
+      |     ^~~~~~~~~~~
+exit_code=0
+
+--- VALGRIND BUILDS (fixed) ---
+
+$ gcc -Wall -Wextra -g -O0 fixed/uninitialised_fixed.c -o build/valgrind/uninitialised_fixed
+exit_code=0
+
+$ gcc -Wall -Wextra -g -O0 fixed/leak_fixed.c -o build/valgrind/leak_fixed
+exit_code=0
+
+$ gcc -Wall -Wextra -g -O0 fixed/double_free_fixed.c -o build/valgrind/double_free_fixed
+exit_code=0
+
+--- ASAN BUILDS (buggy) ---
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer buggy/uninitialised.c -o build/asan/uninitialised_asan
+exit_code=0
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer buggy/leak.c -o build/asan/leak_asan
+exit_code=0
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer buggy/double_free.c -o build/asan/double_free_asan
+exit_code=0
+
+--- ASAN BUILDS (fixed) ---
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer fixed/uninitialised_fixed.c -o build/asan/uninitialised_fixed_asan
+exit_code=0
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer fixed/leak_fixed.c -o build/asan/leak_fixed_asan
+exit_code=0
+
+$ gcc -g -O1 -fsanitize=address -fno-omit-frame-pointer fixed/double_free_fixed.c -o build/asan/double_free_fixed_asan
+exit_code=0

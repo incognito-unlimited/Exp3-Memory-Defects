@@ -1,0 +1,22 @@
+============================================================
+VALGRIND MEMCHECK: leak_fixed
+============================================================
+$ valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all ./build/valgrind/leak_fixed
+------------------------------------------------------------
+==504== Memcheck, a memory error detector
+==504== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==504== Using Valgrind-3.26.0 and LibVEX; rerun with -h for copyright info
+==504== Command: /mnt/d/Projects/Exp3-Memory-Defects/build/valgrind/leak_fixed
+==504== 
+[*] data[0] = 42
+[+] Allocation released; pointer set to NULL.
+==504== 
+==504== HEAP SUMMARY:
+==504==     in use at exit: 0 bytes in 0 blocks
+==504==   total heap usage: 2 allocs, 2 frees, 4,136 bytes allocated
+==504== 
+==504== All heap blocks were freed -- no leaks are possible
+==504== 
+==504== For lists of detected and suppressed errors, rerun with: -s
+==504== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+exit_status=0

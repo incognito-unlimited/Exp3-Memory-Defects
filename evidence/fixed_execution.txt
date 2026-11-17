@@ -1,0 +1,19 @@
+============================================================
+LAB 3A - PLAIN EXECUTION OF CORRECTED PROGRAMS
+============================================================
+
+$ ./build/valgrind/uninitialised_fixed
+[*] Testing an initialised integer...
+[+] value is not positive: 0
+exit_status=0
+
+$ ./build/valgrind/leak_fixed
+[*] data[0] = 42
+[+] Allocation released; pointer set to NULL.
+exit_status=0
+
+$ ./build/valgrind/double_free_fixed
+[*] *value = 7
+[+] Allocation freed once; pointer set to NULL.
+[*] Pointer already NULL; duplicate free skipped.
+exit_status=0

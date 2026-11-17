@@ -1,0 +1,10 @@
+============================================================
+ADDRESSSANITIZER: double_free_fixed
+============================================================
+ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1
+$ ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1 ./build/asan/double_free_fixed_asan
+------------------------------------------------------------
+[*] *value = 7
+[+] Allocation freed once; pointer set to NULL.
+[*] Pointer already NULL; duplicate free skipped.
+exit_status=0

@@ -1,0 +1,33 @@
+============================================================
+ADDRESSSANITIZER: double_free
+============================================================
+ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1
+$ ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1 ./build/asan/double_free_asan
+------------------------------------------------------------
+=================================================================
+==515==ERROR: AddressSanitizer: attempting double-free on 0x78b0babe0010 in thread T0:
+    #0 0x7c90bbd2a3ff in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:51
+    #1 0x636f822e8271 in release_again buggy/double_free.c:18
+    #2 0x636f822e82c9 in main buggy/double_free.c:36
+    #3 0x7c90bb82a600 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:59
+    #4 0x7c90bb82a717 in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x636f822e81a4 in _start (/mnt/d/Projects/Exp3-Memory-Defects/build/asan/double_free_asan+0x11a4) (BuildId: caa953412d5670aebdb6ddc778c89ec7e3dfd727)
+
+0x78b0babe0010 is located 0 bytes inside of 4-byte region [0x78b0babe0010,0x78b0babe0014)
+freed by thread T0 here:
+    #0 0x7c90bbd2a3ff in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:51
+    #1 0x636f822e82b5 in main buggy/double_free.c:32
+    #2 0x7c90bb82a600 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:59
+    #3 0x7c90bb82a717 in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x636f822e81a4 in _start (/mnt/d/Projects/Exp3-Memory-Defects/build/asan/double_free_asan+0x11a4) (BuildId: caa953412d5670aebdb6ddc778c89ec7e3dfd727)
+
+previously allocated by thread T0 here:
+    #0 0x7c90bbd2b60f in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:67
+    #1 0x636f822e828a in main buggy/double_free.c:23
+    #2 0x7c90bb82a600 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:59
+    #3 0x7c90bb82a717 in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x636f822e81a4 in _start (/mnt/d/Projects/Exp3-Memory-Defects/build/asan/double_free_asan+0x11a4) (BuildId: caa953412d5670aebdb6ddc778c89ec7e3dfd727)
+
+SUMMARY: AddressSanitizer: double-free buggy/double_free.c:18 in release_again
+==515==ABORTING
+exit_status=1

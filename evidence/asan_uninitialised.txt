@@ -1,0 +1,9 @@
+============================================================
+ADDRESSSANITIZER: uninitialised
+============================================================
+ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1
+$ ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1 ./build/asan/uninitialised_asan
+------------------------------------------------------------
+[*] Testing an uninitialised integer...
+[!] value is not positive: 0
+exit_status=0

@@ -1,0 +1,19 @@
+============================================================
+ADDRESSSANITIZER: leak
+============================================================
+ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1
+$ ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:print_stacktrace=1 ./build/asan/leak_asan
+------------------------------------------------------------
+
+=================================================================
+==512==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 40 byte(s) in 1 object(s) allocated from:
+    #0 0x7c37b8d2b60f in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:67
+    #1 0x57fb2a8162f7 in main buggy/leak.c:13
+    #2 0x7c37b882a600 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:59
+    #3 0x7c37b882a717 in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x57fb2a8161c4 in _start (/mnt/d/Projects/Exp3-Memory-Defects/build/asan/leak_asan+0x11c4) (BuildId: bc3e4ec1af061e5a6cbea9b66edbdd4a0cbc17e5)
+
+SUMMARY: AddressSanitizer: 40 byte(s) leaked in 1 allocation(s).
+exit_status=1
